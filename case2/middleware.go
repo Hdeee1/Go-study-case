@@ -14,8 +14,8 @@ func (c *CustomMux) RegisterMiddleware(next func(next http.Handler) http.Handler
 func (c *CustomMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	var current http.Handler = &c.ServeMux
 
-	for _, next := range c.middlewares {
-		current = next(current)
+	for i := len(c.middlewares) - 1; i >= 0; i-- {
+		current = c.middlewares[i](current)
 	}
 
 	current.ServeHTTP(w, r)

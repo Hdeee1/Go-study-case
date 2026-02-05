@@ -12,7 +12,7 @@ import (
 type M map[string]interface{}
 
 var SEARCH_MAX_DURATION = 4 * time.Second
-var GOOGLE_SEARCH_API_KEY = "ASSVnHfjD_ltXXXXSyB6WWWWWWWWveMFgE"
+var GOOGLE_SEARCH_API_KEY = "AIzaSyCGreput5F6A-4CqwyTAC5RiYzmHvxEDw8"
 
 func doSearch(ctx context.Context, keyword string, chanRes chan []byte, chanErr chan error) {
 	innerChanRes := make(chan []byte)
@@ -20,7 +20,7 @@ func doSearch(ctx context.Context, keyword string, chanRes chan []byte, chanErr 
 
 	url := "https://www.googleapis.com/customsearch/v1"
 	url = fmt.Sprintf("%s?key=%s", url, GOOGLE_SEARCH_API_KEY)
-	url = fmt.Sprintf("%s&cx=017576662512468239146:omuauf_lfve", url)
+	url = fmt.Sprintf("%s&cx=a10dc19460550480c", url)
 	url = fmt.Sprintf("%s&callback=hndlr", url)
 	url = fmt.Sprintf("%s&q=%s", url, keyword)
 
@@ -51,7 +51,7 @@ func doSearch(ctx context.Context, keyword string, chanRes chan []byte, chanErr 
 
 		if resp != nil {
 			defer resp.Body.Close()
-			resData, err := io.ReadAll(req.Body)
+			resData, err := io.ReadAll(resp.Body)
 			if err != nil {
 				innerChanErr <- err
 				return
